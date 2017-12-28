@@ -3,6 +3,10 @@ package View;
 import Controller.ControllerTTT;
 import java.util.Scanner;
 
+/*
+ * Responsible for starting a tic tac toe game, printing the game board,
+ * prompting, accepting, and handing user input to controller.
+ */
 public class ViewTTT {
     public ViewTTT(){
         controller = new ControllerTTT();
@@ -32,19 +36,23 @@ public class ViewTTT {
                 ch = input.next().charAt(0);
             }while (!controller.isValidInput(ch));
         }
+
         System.out.println();
         String result = controller.GetFinalResult();
+
         if(result != null){
            System.out.println(result + " has won!");
         }
         else{
             System.out.println("Game has ended in a draw.");
         }
+
         printBoard();
 
         String playAgain;
         input.nextLine();
         System.out.println("Would you like to play again? Enter 'yes' to play again, 'no' to exit.");
+
         do{
             playAgain = input.nextLine();
             playAgain.toLowerCase();
@@ -65,6 +73,7 @@ public class ViewTTT {
     public void printBoard(){
         char [][] board = controller.getBoard();
         System.out.println();
+
         for(int row = 0; row < board.length; row++){
             for(int col = 0; col < board[0].length; col++){
                 System.out.print(board[row][col]);

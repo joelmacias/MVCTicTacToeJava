@@ -1,12 +1,16 @@
 package Model;
 
-
+/*
+ *  Represents a game of tic tac toe with a 3x3 2D char array
+ *  Defines data, logic, and computations necessary for a tic tac toe game
+ */
 public class ModelTTT{
 
     public ModelTTT(){
         defaultValues();
     }
 
+    //Sets board, and all other data to the values of a new game.
     public void defaultValues(){
         status = GameStatus.VALID;
         xTurn = true;
@@ -22,6 +26,7 @@ public class ModelTTT{
 
     }
 
+    //Returns a copy of the current game board.
     public char[][] returnBoard(){
         char [][] copy = new char[3][3];
         for(int i = 0; i < 3; i++){
@@ -31,11 +36,15 @@ public class ModelTTT{
         }
         return copy;
     }
+
+    //Sets the names, and marks of both players.
     public void playerInit(String nameOne, String nameTwo){
         playerX = new Player(nameOne, 'X');
         playerO = new Player(nameTwo, 'O');
     }
 
+    //Returns true if board was successfully updated with player's move, false otherwise.
+    //Sets status to SPACETAKEN, VALID, WINNER, or DRAW according to the result of the player's move.
     public boolean updateBoard(int row, int col){
         if(board[row][col] == 'X' || board[row][col] == 'O'){
             status = GameStatus.SPACETAKEN;
@@ -58,6 +67,12 @@ public class ModelTTT{
         xTurn = !xTurn;
         return true;
     }
+
+    /*
+     * If the player has selected a valid move returns true, places move, and sets status to VALIDMOVE
+     * If the player selected an invalid move returns false, and sets status to the type of invalid move,
+     * either OUTOFBOUNDS, or SPACETAKEN.
+     */
     public boolean placeMove(char move){
         switch (move){
             case '1':{
@@ -107,6 +122,7 @@ public class ModelTTT{
         return winnerName;
     }
 
+    //If the game has ended sets status to WINNER, or DRAW accordingly. Otherwise sets status to VALID
     private void checkForEndOfGame(int row, int col){
 
         //Get mark of current players turn
@@ -146,13 +162,16 @@ public class ModelTTT{
         }
     }
 
+    //Current status of the game may be one of the following: WINNER, DRAW, VALID, OUTOFBOUNDS, SPACETAKEN.
     private GameStatus status;
     private Player playerX;
     private Player playerO;
     private String winnerName;
     private boolean xTurn;
     private int totalMoves;
+    //Max number of moves allowed in a tic tac toe game.
     private final int MAX_MOVES = 9;
+    //Minimum number of moves required for there to be a winner.
     private final int MIN_MOVES_TO_WIN = 5;
     private  char[][] board = new char[3][3];
 }
